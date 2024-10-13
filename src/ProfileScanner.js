@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const ProfileScanner = () => {
@@ -8,7 +8,8 @@ const ProfileScanner = () => {
 
     const handleScan = async () => {
         try {
-            const response = await axios.get(`http://localhost:5001/api/scrape?role=${encodeURIComponent(role)}`);
+            // Update the URL to use the Netlify function
+            const response = await axios.get(`/.netlify/functions/scrapeProfiles?role=${encodeURIComponent(role)}`);
             setProfiles(response.data);
             setError('');
         } catch (err) {
