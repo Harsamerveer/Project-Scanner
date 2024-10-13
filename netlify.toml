@@ -1,5 +1,9 @@
 [build]
-  functions = "functions" # Specifies the directory for functions
+  command = "npm run build"
+  publish = "build"
+  
+[functions]
+  directory = "functions"
 
 [[redirects]]
   from = "/api/scrape"
