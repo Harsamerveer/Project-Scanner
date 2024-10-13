@@ -1,18 +1,34 @@
-const express = require('express');
 const fs = require('fs'); // Importing the 'fs' module
 const cheerio = require('cheerio');
-const cors = require('cors');
 
-const app = express();
 
-// Enable CORS
-app.use(cors());
 
-// Set the local HTML file path
-const localFilePath = 'public/mock_profiles.html';
+exports.handler = async (event) => {
+    const { role } = event.queryStringParameters; // Get role from query
+    if (!role) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Role is required' }),
+        };
+    }
 
-const scrapeProfiles = (role) => {
-    try {
+    const localFilePath = './public/mock_profiles.html'; // Change this path as needed
+    const profiles = scrapeProfiles(role, localFilePath); // Pass the file path to the function
+    if (profiles.length > 0) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify(profiles),
+        };
+    } else {
+        return {
+            statusCode: 404,
+            body: JSON.stringify({ error: 'No profiles found for the specified role' }),
+        };
+    }
+};
+
+const scrapeProfiles = (role, localFilePath) => {
+        try {
         const data = fs.readFileSync(localFilePath, 'utf-8'); // Read the local HTML file
         const $ = cheerio.load(data);
 
