@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 // Set the local HTML file path
-const localFilePath = 'C:/Users/Randhawa/Downloads/scrapingresumesproject/frontend/public/mock_profiles.html';
+const localFilePath = 'public/mock_profiles.html';
 
 const scrapeProfiles = (role) => {
     try {
