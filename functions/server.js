@@ -1,4 +1,4 @@
-const fs = require('fs'); // Importing the 'fs' module
+const fs = require('fs');
 const cheerio = require('cheerio');
 
 // Handler function for Netlify
@@ -11,8 +11,9 @@ exports.handler = async (event) => {
         };
     }
 
-    const localFilePath = 'mock_profiles.html'; // Change this path as needed
-    const profiles = scrapeProfiles(role, localFilePath); // Pass the file path to the function
+    const localFilePath = '../public/mock_profiles.html';    
+    const profiles = scrapeProfiles(role, localFilePath); // Call the scraping function
+
     if (profiles.length > 0) {
         return {
             statusCode: 200,
@@ -26,21 +27,18 @@ exports.handler = async (event) => {
     }
 };
 
-// Function to scrape profiles
 const scrapeProfiles = (role, localFilePath) => {
     try {
         const data = fs.readFileSync(localFilePath, 'utf-8'); // Read the local HTML file
         const $ = cheerio.load(data);
-
         const profiles = [];
 
-        // Scraping logic to find profiles based on the title
+        // Scraping logic
         $('.simple-card').each((i, element) => {
-            const title = $(element).find('.simple-text').text().trim(); // Get the title directly
-            if (title.toLowerCase().includes(role.toLowerCase())) { // Check if title matches the role
-                const name = $(element).find('.simple-heading').text().trim(); // Get the name directly
-
-                profiles.push({ name, title }); // Push the extracted name and title to the profiles array
+            const title = $(element).find('.simple-text').text().trim();
+            if (title.toLowerCase().includes(role.toLowerCase())) {
+                const name = $(element).find('.simple-heading').text().trim();
+                profiles.push({ name, title });
             }
         });
 

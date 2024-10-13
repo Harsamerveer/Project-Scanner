@@ -1,0 +1,8 @@
+[build]
+  functions = "functions" # Specifies the directory for functions
+
+[[redirects]]
+  from = "/api/scrape"
+  to = "/.netlify/functions/server" # Adjust the endpoint as needed
+  status = 200
+  force = true
