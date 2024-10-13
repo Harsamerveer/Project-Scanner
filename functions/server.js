@@ -12,7 +12,7 @@ exports.handler = async (event) => {
         };
     }
 
-    const localFilePath = 'mock_profiles.html';    
+    const localFilePath = path.join(__dirname, '..', 'build', 'mock_profiles.html'); // Updated path
     const profiles = scrapeProfiles(role, localFilePath); // Call the scraping function
 
     console.log(profiles.length);
