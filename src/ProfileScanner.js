@@ -9,7 +9,7 @@ const ProfileScanner = () => {
     const handleScan = async () => {
         try {
             // Update the URL to use the Netlify function
-            const response = await axios.get(`/.netlify/functions/scrapeProfiles?role=${encodeURIComponent(role)}`);
+            const response = await axios.get(`/.netlify/functions/server?role=${encodeURIComponent(role)}`);
             setProfiles(response.data);
             setError('');
         } catch (err) {
