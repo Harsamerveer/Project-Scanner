@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 
 // Handler function for Netlify
 exports.handler = async (event) => {
+    console.log('Function triggered');
     const { role } = event.queryStringParameters; // Get role from query
     if (!role) {
         return {
@@ -14,7 +15,7 @@ exports.handler = async (event) => {
     const localFilePath = '../public/mock_profiles.html';    
     const profiles = scrapeProfiles(role, localFilePath); // Call the scraping function
 
-    print(profiles.length);
+    console.log(profiles.length);
 
     if (profiles.length > 0) {
         return {
