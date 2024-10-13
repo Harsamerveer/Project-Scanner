@@ -14,6 +14,8 @@ exports.handler = async (event) => {
     const localFilePath = '../public/mock_profiles.html';    
     const profiles = scrapeProfiles(role, localFilePath); // Call the scraping function
 
+    print(profiles.length);
+
     if (profiles.length > 0) {
         return {
             statusCode: 200,
